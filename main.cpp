@@ -71,7 +71,7 @@ struct sounds{
     {
         if(Menu.sound)
         {
-            Mix_Chunk* music2=Mix_LoadWAV("ballbouncing.wav");
+            Mix_Chunk* music2=Mix_LoadWAV("sounds/ballbouncing.wav");
             Mix_PlayChannel(1,music2,0);
         }
     }
@@ -79,7 +79,7 @@ struct sounds{
     {
         if(Menu.sound)
         {
-            Mix_Chunk* music2=Mix_LoadWAV("ballkick.wav");
+            Mix_Chunk* music2=Mix_LoadWAV("sounds/ballkick.wav");
             Mix_PlayChannel(2,music2,0);
         }
     }
@@ -87,7 +87,7 @@ struct sounds{
     {
         if(Menu.sound)
         {
-            Mix_Chunk* music2=Mix_LoadWAV("whistle.mp3");
+            Mix_Chunk* music2=Mix_LoadWAV("sounds/whistle.mp3");
             Mix_PlayChannel(3,music2,0);
         }
     }
@@ -95,7 +95,7 @@ struct sounds{
     {
         if(Menu.sound)
         {
-            Mix_Chunk* music2=Mix_LoadWAV("ding.mp3");
+            Mix_Chunk* music2=Mix_LoadWAV("sounds/ding.mp3");
             Mix_PlayChannel(3,music2,0);
         }
     }
@@ -103,7 +103,7 @@ struct sounds{
     {
         if(Menu.sound)
         {
-            Mix_Chunk* music2=Mix_LoadWAV("ding2.mp3");
+            Mix_Chunk* music2=Mix_LoadWAV("sounds/ding2.mp3");
             Mix_PlayChannel(3,music2,0);
         }
     }
@@ -111,7 +111,7 @@ struct sounds{
     {
         if(Menu.sound)
         {
-            Mix_Chunk* music2=Mix_LoadWAV("ding3.mp3");
+            Mix_Chunk* music2=Mix_LoadWAV("sounds/ding3.mp3");
             Mix_PlayChannel(3,music2,0);
         }
     }
@@ -124,16 +124,16 @@ void menu::menuinit(bool &music)
     SDL_SetWindowTitle(window,"Head Football");
     menuback={0,0,WIDTH,HEIGHT};
     settingrect={1030,700,250,100};
-    SDL_Surface* tempts=IMG_Load("claw.png");
+    SDL_Surface* tempts=IMG_Load("images/claw.png");
     clawmenu=SDL_CreateTextureFromSurface(renderer,tempts);
-    tempts=IMG_Load("field.png");
+    tempts=IMG_Load("images/field.png");
     backmenu=SDL_CreateTextureFromSurface(renderer,tempts);
-    tempts=IMG_Load("setting.png");
+    tempts=IMG_Load("images/setting.png");
     setting=SDL_CreateTextureFromSurface(renderer,tempts);
     SDL_FreeSurface(tempts);
     if(Menu.music)
     {
-        Mix_Music* music= Mix_LoadMUS("theme.mp3");
+        Mix_Music* music= Mix_LoadMUS("sounds/theme.mp3");
         Mix_PlayMusic(music,20);
     }
     menuclaw={-5,900,400,400};
@@ -175,7 +175,7 @@ void menu::menuinit(bool &music)
                 if(!music) Mix_HaltMusic();
                 else
                 {
-                Mix_Music* music= Mix_LoadMUS("theme.mp3");
+                Mix_Music* music= Mix_LoadMUS("sounds/theme.mp3");
                 Mix_PlayMusic(music,20);
                 }
             }
@@ -194,10 +194,10 @@ void menu::menuinit(bool &music)
             if(rmenu==4) filledEllipseRGBA(renderer,1108,745,35,35,(!music)?255:0,(music)?255:0,0,100);
             if(rmenu==5) filledEllipseRGBA(renderer,1200,745,35,35,(!sound)?255:0,(sound)?255:0,0,100);
         }
-        text(renderer,100,690,210,100,"FreeSans.ttf",90,(rmenu==0)?255:0,0,0,255,"New game");
-        text(renderer,350,690,300,100,"FreeSans.ttf",90,0,(rmenu==1)?255:0,0,255,"resume game");
-        text(renderer,700,690,120,100,"FreeSans.ttf",90,0,0,(rmenu==2)?255:0,255,"table");
-        text(renderer,850,690,200,100,"FreeSans.ttf",90,(rmenu==3)?255:0,(rmenu==3)?255:0,0,255,"settings");
+        text(renderer,100,690,210,100,"fonts/FreeSans.ttf",90,(rmenu==0)?255:0,0,0,255,"New game");
+        text(renderer,350,690,300,100,"fonts/FreeSans.ttf",90,0,(rmenu==1)?255:0,0,255,"resume game");
+        text(renderer,700,690,120,100,"fonts/FreeSans.ttf",90,0,0,(rmenu==2)?255:0,255,"table");
+        text(renderer,850,690,200,100,"fonts/FreeSans.ttf",90,(rmenu==3)?255:0,(rmenu==3)?255:0,0,255,"settings");
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
@@ -209,7 +209,7 @@ void menu::menuinit(bool &music)
     {
         if(Menu.music)
         {
-        Mix_Music* music= Mix_LoadMUS("crowdsound.wav");
+        Mix_Music* music= Mix_LoadMUS("sounds/crowdsound.wav");
         Mix_PlayMusic(music,20);
         }
         return;
@@ -219,18 +219,18 @@ void menu::menuinit(bool &music)
 }
 void menu::scoreboard()
 {
-    SDL_Surface* tempts=IMG_Load("score table.png");
+    SDL_Surface* tempts=IMG_Load("images/score table.png");
     backmenu=SDL_CreateTextureFromSurface(renderer,tempts);
     SDL_FreeSurface(tempts);
     bool st=true;
     SDL_Event e;
     string s ;
     int tedad=0;
-    ifstream read("jadval.txt");
+    ifstream read("scores.txt");
     while(getline(read,s)){
     tedad++; }
     read.close();
-    ifstream fin("jadval.txt");
+    ifstream fin("scores.txt");
     string names[tedad] ;
     int lists[tedad][8];
     int i=0;
@@ -253,12 +253,12 @@ void menu::scoreboard()
     int q=12;
     if(tedad<12) q=tedad;
     for(int v=0 ; v<q ; v++){
-        text(renderer , 450, 215+35*v , names[v].length()*13 , 30 ,"FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , names[v] ) ;
+        text(renderer , 450, 215+35*v , names[v].length()*13 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , names[v] ) ;
         for(int u=0 ; u<8 ; u++){
             if(lists[v][u]<10)
-                text(renderer , 750+55*u , 215+35*v , 18 , 30 ,"FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
+                text(renderer , 750+55*u , 215+35*v , 18 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
             else
-                text(renderer , 750+55*u , 215+35*v , 36 , 30 ,"FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
+                text(renderer , 750+55*u , 215+35*v , 36 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
         }
     }
     SDL_RenderPresent(renderer); //show table image
@@ -272,20 +272,20 @@ void menu::scoreboard()
 }
 void menu::scoreboardp()
 {
-    SDL_Surface* tempts=IMG_Load("score table.png");
+    SDL_Surface* tempts=IMG_Load("images/score table.png");
     backmenu=SDL_CreateTextureFromSurface(renderer,tempts);
     SDL_FreeSurface(tempts);
-    text(renderer , 380 , 10 , 40 , 30 ,"FreeSans.ttf" ,40 ,255 , 255 , 200 , 255 ,"Lets GO!")  ;
+    text(renderer , 380 , 10 , 40 , 30 ,"fonts/FreeSans.ttf" ,40 ,255 , 255 , 200 , 255 ,"Lets GO!")  ;
     boxRGBA(renderer,380,10,420,40,0,0,0,175);
     bool st=true;
     SDL_Event e;
     string s ;
     int tedad=0;
-    ifstream read("jadval.txt");
+    ifstream read("scores.txt");
     while(getline(read,s)){
     tedad++; }
     read.close();
-    ifstream fin("jadval.txt");
+    ifstream fin("scores.txt");
     string name[tedad] ;
     int lists[tedad][8];
     int i=0;
@@ -309,33 +309,33 @@ void menu::scoreboardp()
         }
     SDL_RenderCopy(renderer, backmenu, NULL, &menuback);
     boxRGBA(renderer,10,695,100,790,0,0,0,175);
-    text(renderer , 450 , 30 , 340, 100 ,"FreeSans.ttf" ,100 ,0 , 250 , 80 , 255 ,"Lets GO!")  ;
+    text(renderer , 450 , 30 , 340, 100 ,"fonts/FreeSans.ttf" ,100 ,0 , 250 , 80 , 255 ,"Lets GO!")  ;
     boxRGBA(renderer,450,30,790,130,255,255,255,80);
     int t1=-1 , t2=-1 ;
     int q=12;
     if(tedad<12) q=tedad;
     for(int v=0 ; v<q ; v++){
         if(name[v]==player1.name ){
-            text(renderer , 450, 215+35*v , name[v].length()*13 , 30 ,"FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , name[v] ) ;
+            text(renderer , 450, 215+35*v , name[v].length()*13 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , name[v] ) ;
             t1=v; }
         else if (name[v]==player2.name){
-            text(renderer , 450, 215+35*v , name[v].length()*13 , 30 ,"FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , name[v] ) ;
+            text(renderer , 450, 215+35*v , name[v].length()*13 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , name[v] ) ;
             t2=v; }
 
         else
-            text(renderer , 450, 215+35*v , name[v].length()*13 , 30 ,"FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , name[v] ) ;
+            text(renderer , 450, 215+35*v , name[v].length()*13 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , name[v] ) ;
         for(int u=0 ; u<8 ; u++){
             if(v==t1 || v==t2){
                 if(lists[v][u]<10)
-                    text(renderer , 750+55*u , 215+35*v , 18 , 30 ,"FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , to_string(lists[v][u]) ) ;
+                    text(renderer , 750+55*u , 215+35*v , 18 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , to_string(lists[v][u]) ) ;
                 else
-                    text(renderer , 750+55*u , 215+35*v , 36 , 30 ,"FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , to_string(lists[v][u]) ) ;
+                    text(renderer , 750+55*u , 215+35*v , 36 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 25 , 25 , 255 , to_string(lists[v][u]) ) ;
                 }
         else{
             if(lists[v][u]<10)
-                text(renderer , 750+55*u , 215+35*v , 18 , 30 ,"FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
+                text(renderer , 750+55*u , 215+35*v , 18 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
             else
-                text(renderer , 750+55*u , 215+35*v , 36 , 30 ,"FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
+                text(renderer , 750+55*u , 215+35*v , 36 , 30 ,"fonts/FreeSans.ttf" , 30 , 255 , 255 , 255 , 255 , to_string(lists[v][u]) ) ;
             }
         }
     }
@@ -352,14 +352,14 @@ void menu::playerselection()
 {
    bool playerselect=true;
     SDL_Texture *pimg[8];
-    SDL_Surface* tempts=IMG_Load("mback.png");
+    SDL_Surface* tempts=IMG_Load("images/mback.png");
     backmenu=SDL_CreateTextureFromSurface(renderer,tempts);
     for(int i=0;i<8;i++)
     {
-        tempts=IMG_Load(("p"+to_string(i)+".png").c_str());
+        tempts=IMG_Load(("images/players/p"+to_string(i)+".png").c_str());
         pimg[i]=SDL_CreateTextureFromSurface(renderer,tempts);
     }
-    tempts=IMG_Load("shoes.png");
+    tempts=IMG_Load("images/players/shoes.png");
     shoesimg=SDL_CreateTextureFromSurface(renderer,tempts);
     SDL_FreeSurface(tempts);
     player1.pos={350,320,230,280};
@@ -453,8 +453,8 @@ void menu::playerselection()
         mymap[5]="     Thief    ";
         mymap[6]="   No Power   ";
         mymap[7]="     Thief    ";
-        text(renderer,370,230,200,85,"FreeSans.ttf",50,255,0,0,255,mymap[player1.playernum]);
-        text(renderer,690,230,200,85,"FreeSans.ttf",50,255,0,0,255,mymap[player2.playernum]);
+        text(renderer,370,230,200,85,"fonts/FreeSans.ttf",50,255,0,0,255,mymap[player1.playernum]);
+        text(renderer,690,230,200,85,"fonts/FreeSans.ttf",50,255,0,0,255,mymap[player2.playernum]);
         SDL_RenderPresent(renderer);
         SDL_Delay(5);
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
@@ -469,16 +469,16 @@ void menu::otherselection()
 {
     bool select=true;
     SDL_Texture *ballsimg[4],*backsimg[3];
-    SDL_Surface* tempts=IMG_Load("mback2.png");
+    SDL_Surface* tempts=IMG_Load("images/mback2.png");
     backmenu=SDL_CreateTextureFromSurface(renderer,tempts);
     for(int i=0;i<3;i++)
     {
-        tempts=IMG_Load(("background"+to_string(i+1)+"0.png").c_str());
+        tempts=IMG_Load(("images/backgrounds/background"+to_string(i+1)+"0.png").c_str());
         backsimg[i]=SDL_CreateTextureFromSurface(renderer,tempts);
     }
     for(int i=0;i<4;i++)
     {
-        tempts=IMG_Load(("ball"+to_string(i+1)+"0.png").c_str());
+        tempts=IMG_Load(("images/balls/ball"+to_string(i+1)+"0.png").c_str());
         ballsimg[i]=SDL_CreateTextureFromSurface(renderer,tempts);
     }
     SDL_FreeSurface(tempts);
@@ -557,7 +557,7 @@ void menu::otherselection()
             break;
         }
         SDL_RenderCopy(renderer, ballsimg[ballnum], NULL, &player1.pos);
-        text(renderer,720,460,200,85,"FreeSans.ttf",50,255,255,255,255,"soccer field");
+        text(renderer,720,460,200,85,"fonts/FreeSans.ttf",50,255,255,255,255,"soccer field");
         SDL_RenderPresent(renderer);
         SDL_Delay(5);
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
@@ -570,7 +570,7 @@ void menu::otherselection()
 }
 void menu::names()
 {
-    SDL_Surface* tempts=IMG_Load("mback1.png");
+    SDL_Surface* tempts=IMG_Load("images/mback1.png");
     backmenu=SDL_CreateTextureFromSurface(renderer,tempts);
     player1.name="";
     player2.name="";
@@ -603,10 +603,10 @@ void menu::names()
         SDL_RenderCopy(renderer, backmenu, NULL, &menuback);
         boxRGBA(renderer,30,580,380,680,0,0,0,200);
         boxRGBA(renderer,900,580,1250,680,0,0,0,200);
-        text(renderer,30,480,260,90,"FreeSans.ttf",50,255,255,255,255,"Player1 name:");
-        text(renderer,900,480,260,90,"FreeSans.ttf",50,255,255,255,255,"Player2 name:");
-        text(renderer,30,580,player1.name.length()*25,80,"FreeSans.ttf",50,255,255,255,255,player1.name);
-        text(renderer,900,580,player2.name.length()*25,80,"FreeSans.ttf",50,255,255,255,255,player2.name);
+        text(renderer,30,480,260,90,"fonts/FreeSans.ttf",50,255,255,255,255,"Player1 name:");
+        text(renderer,900,480,260,90,"fonts/FreeSans.ttf",50,255,255,255,255,"Player2 name:");
+        text(renderer,30,580,player1.name.length()*25,80,"fonts/FreeSans.ttf",50,255,255,255,255,player1.name);
+        text(renderer,900,580,player2.name.length()*25,80,"fonts/FreeSans.ttf",50,255,255,255,255,player2.name);
        switch(k)
         {
         case(0):
@@ -651,13 +651,13 @@ string menu::nameinput(string pname,int x,int y,int &k)
         SDL_RenderCopy(renderer, backmenu, NULL, &menuback);
         boxRGBA(renderer,30,580,380,680,0,0,0,200);
         boxRGBA(renderer,900,580,1250,680,0,0,0,200);
-        text(renderer,x,y+50,pname.length()*25,80,"FreeSans.ttf",50,255,255,255,255,pname);
+        text(renderer,x,y+50,pname.length()*25,80,"fonts/FreeSans.ttf",50,255,255,255,255,pname);
         a++; if(a>19) a=0;
-        text(renderer,x+pname.length()*25,y+45,30,90,"FreeSans.ttf",50,255,255,255,(a/10)?1:255,"|");
-        text(renderer,30,480,260,90,"FreeSans.ttf",50,255,255,255,255,"Player1 name:");
-        text(renderer,900,480,260,90,"FreeSans.ttf",50,255,255,255,255,"Player2 name:");
-        if(k==2)text(renderer,30,580,player1.name.length()*25,80,"FreeSans.ttf",50,255,255,255,255,player1.name);
-        if(k==1)text(renderer,900,580,player2.name.length()*25,80,"FreeSans.ttf",50,255,255,255,255,player2.name);
+        text(renderer,x+pname.length()*25,y+45,30,90,"fonts/FreeSans.ttf",50,255,255,255,(a/10)?1:255,"|");
+        text(renderer,30,480,260,90,"fonts/FreeSans.ttf",50,255,255,255,255,"Player1 name:");
+        text(renderer,900,480,260,90,"fonts/FreeSans.ttf",50,255,255,255,255,"Player2 name:");
+        if(k==2)text(renderer,30,580,player1.name.length()*25,80,"fonts/FreeSans.ttf",50,255,255,255,255,player1.name);
+        if(k==1)text(renderer,900,580,player2.name.length()*25,80,"fonts/FreeSans.ttf",50,255,255,255,255,player2.name);
         SDL_RenderPresent(renderer);
         SDL_Delay(50);
          if(e.type==SDL_KEYDOWN && e.key.keysym.sym==SDLK_RIGHT) { k++; namein=false;}
@@ -677,7 +677,7 @@ int main( int argc, char * argv[] )
     Menu.sound=true; Menu.music=true;
     if(Menu.music)
     {
-        Mix_Music* music= Mix_LoadMUS("theme.mp3");
+        Mix_Music* music= Mix_LoadMUS("sounds/theme.mp3");
         Mix_PlayMusic(music,20);
     }
     Menu.menuinit(Menu.music);
@@ -698,7 +698,7 @@ void machend()
     SDL_RenderCopy(renderer, shoesimg, NULL, &player1.shoes);
     SDL_RenderCopyEx(renderer, shoesimg, NULL, &player2.shoes,0,0,SDL_FLIP_HORIZONTAL);
     SDL_Texture* resultimg;
-    SDL_Surface* tempts=IMG_Load("result.png");
+    SDL_Surface* tempts=IMG_Load("images/result.png");
     resultimg=SDL_CreateTextureFromSurface(renderer,tempts);
     SDL_FreeSurface(tempts);
     SDL_Rect resultrect={290,100,700,600};
@@ -743,8 +743,8 @@ void machend()
         SDL_RenderCopyEx(renderer, player2.pimg, NULL, &player2.pos,0,0,SDL_FLIP_HORIZONTAL);
         SDL_RenderCopy(renderer, shoesimg, NULL, &player1.shoes);
         SDL_RenderCopyEx(renderer, shoesimg, NULL, &player2.shoes,0,0,SDL_FLIP_HORIZONTAL);
-        text(renderer,540,390,200,70,"FreeSans.ttf",70,255,255,255,255,to_string(player1.goalnum)+" - "+to_string(player2.goalnum));
-        text(renderer,540,450,200,60,"FreeSans.ttf",70,255,255,255,255,s.c_str());
+        text(renderer,540,390,200,70,"fonts/FreeSans.ttf",70,255,255,255,255,to_string(player1.goalnum)+" - "+to_string(player2.goalnum));
+        text(renderer,540,450,200,60,"fonts/FreeSans.ttf",70,255,255,255,255,s.c_str());
         switch(num)
         {
         case(0):
@@ -789,25 +789,25 @@ void game()
 void initialize()
 {
     isRunning=true;
-    SDL_Surface* tempts=IMG_Load(("background"+to_string(backnum+1)+"0.png").c_str());
+    SDL_Surface* tempts=IMG_Load(("images/backgrounds/background"+to_string(backnum+1)+"0.png").c_str());
     backimg[0]=SDL_CreateTextureFromSurface(renderer,tempts);
-    tempts=IMG_Load(("background"+to_string(backnum+1)+"1.png").c_str());
+    tempts=IMG_Load(("images/backgrounds/background"+to_string(backnum+1)+"1.png").c_str());
     backimg[1]=SDL_CreateTextureFromSurface(renderer,tempts);
     for(int i=0;i<4;i++)
     {
-        tempts=IMG_Load(("ball"+to_string(ballnum+1)+to_string(i)+".png").c_str());
+        tempts=IMG_Load(("images/balls/ball"+to_string(ballnum+1)+to_string(i)+".png").c_str());
         ballimg[i]=SDL_CreateTextureFromSurface(renderer,tempts);
     }
-    tempts=IMG_Load("punch.png");
+    tempts=IMG_Load("images/players/punch.png");
     punchimg=SDL_CreateTextureFromSurface(renderer,tempts);
     for(int i=0;i<10;i++)
     {
-        tempts=IMG_Load(("spr_seestars_"+to_string(i)+".png").c_str());
+        tempts=IMG_Load(("images/stars/spr_seestars_"+to_string(i)+".png").c_str());
         stars[i]=SDL_CreateTextureFromSurface(renderer,tempts);
     }
     for(int i=0;i<18;i++)
     {
-        tempts=IMG_Load(("portal"+to_string(i)+".gif").c_str());
+        tempts=IMG_Load(("images/portal/portal"+to_string(i)+".gif").c_str());
         portal[i]=SDL_CreateTextureFromSurface(renderer,tempts);
     }
     SDL_FreeSurface(tempts);
@@ -822,7 +822,7 @@ void initialize()
     bool pluss=true;
     if(Menu.music)
     {
-        Mix_Music* music= Mix_LoadMUS("crowdsound.wav");
+        Mix_Music* music= Mix_LoadMUS("sounds/crowdsound.wav");
         Mix_PlayMusic(music,20);
     }
     while(player1.pos.y<430-2)
@@ -882,7 +882,7 @@ void initialize()
 void pause()
 {
     SDL_Texture* pauseimg;
-    SDL_Surface* tempts=IMG_Load("pause.png");
+    SDL_Surface* tempts=IMG_Load("images/pause.png");
     pauseimg=SDL_CreateTextureFromSurface(renderer,tempts);
     SDL_FreeSurface(tempts);
     SDL_Rect pausrect={450,250,400,500};
@@ -1701,14 +1701,14 @@ void render()
     mymap[5]="     Thief    ";
     for(int i=0;i<5;i++)
     {
-        if(player1.pow[i] && player1.playernum) text(renderer,200,750,200,50,"FreeSans.ttf",50,255,0,0,255,mymap[i]);
-        if(player2.pow[i] && player2.playernum) text(renderer,900,750,200,50,"FreeSans.ttf",50,255,0,0,255,mymap[i]);
+        if(player1.pow[i] && player1.playernum) text(renderer,200,750,200,50,"fonts/FreeSans.ttf",50,255,0,0,255,mymap[i]);
+        if(player2.pow[i] && player2.playernum) text(renderer,900,750,200,50,"fonts/FreeSans.ttf",50,255,0,0,255,mymap[i]);
     }
-    text(renderer,690,95,70,100,"FreeSans.ttf",70,255,255,255,255,to_string(player2.goalnum));
-    text(renderer,520,95,70,100,"FreeSans.ttf",70,255,255,255,255,to_string(player1.goalnum));
-    text(renderer,620,110,40,65,"FreeSans.ttf",70,255,255,255,255,to_string(timep));
-    text(renderer,510,45,110,35,"FreeSans.ttf",60,255,255,255,255,player1.name.c_str());
-    text(renderer,660,45,110,35,"FreeSans.ttf",60,255,255,255,255,player2.name.c_str());
+    text(renderer,690,95,70,100,"fonts/FreeSans.ttf",70,255,255,255,255,to_string(player2.goalnum));
+    text(renderer,520,95,70,100,"fonts/FreeSans.ttf",70,255,255,255,255,to_string(player1.goalnum));
+    text(renderer,620,110,40,65,"fonts/FreeSans.ttf",70,255,255,255,255,to_string(timep));
+    text(renderer,510,45,110,35,"fonts/FreeSans.ttf",60,255,255,255,255,player1.name.c_str());
+    text(renderer,660,45,110,35,"fonts/FreeSans.ttf",60,255,255,255,255,player2.name.c_str());
     if(!player1.pow[3] && !player2.pow[3])
         SDL_RenderCopy(renderer, ballimg[ballstate/5], NULL, &ball);
 }
@@ -1724,11 +1724,11 @@ void update_scores()
     else equall=1 ;
     int tedad=0;
     string s ;
-    ifstream read("jadval.txt");
+    ifstream read("scores.txt");
     while(getline(read,s))
         tedad++;
     read.close();
-    ifstream fin("jadval.txt") ;
+    ifstream fin("scores.txt") ;
     string names[tedad+2] ; // if 2 new player
     int lists[tedad+2][8];
     int r=0;
@@ -1786,7 +1786,7 @@ void update_scores()
         lists[t2][6]+=player2.goalnum-player1.goalnum;
         lists[t2][7]+=won2*3+equall;
         }
-    ofstream rewrite( "jadval.txt") ;
+    ofstream rewrite( "scores.txt") ;
     for(int a=0 ; a<tedad ; a++){
         rewrite<<names[a]<<space;
         for(int b=0 ; b<8 ; b++)
@@ -1833,7 +1833,7 @@ void goalcelebrate()
     char c='a';
     for(int i=0;i<25;i++)
     {
-        string goal="g";
+        string goal="images/celebrate/g";
         goal+=c;
         render();
         boxRGBA(renderer,0,0,WIDTH,HEIGHT,0,0,0,150);
